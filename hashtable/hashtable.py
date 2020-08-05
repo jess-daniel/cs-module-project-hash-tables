@@ -9,6 +9,54 @@ class HashTableEntry:
         self.next = None
 
 
+class LinkedList:
+    def __init__(self, head):
+        self.head = None
+        self.tail = None
+
+    def find(self, key):
+        current = self.head
+
+        while current is not None:
+            if current.key == key:
+                return current
+            current = current.next
+
+        # can return value for the get
+        return current.value
+
+    def insert_at_head(self, key, value):
+        current = self.head
+
+        while current is not None:
+            if current.key == key:
+                current.value = value
+                return
+            current = current.next
+
+        new_node = HashTableEntry(key, value)
+        new_node.next = self.head
+        self.head = new_node
+
+    def insert_at_tail(self):
+        # walk through and check if key is here
+        # if not, make a new node and insert at tail
+        pass
+
+    def delete(self, key):
+        current = self.head
+        if self.head.key == key:
+            self.head = self.head.next
+        else:
+            while current.next is not None:
+                if current.next.key == key:
+                    current.next = current.next.next
+                    if current.next is None:
+                        self.tail = current.next
+                    else:
+                        current = current.next
+
+
 # Hash table can't have fewer than this many slots
 MIN_CAPACITY = 8
 
@@ -60,11 +108,11 @@ class HashTable:
         FNV_prime = 1099511628211
         offset_basis = 14695981039346656037
 
-        hash = offset_basis
+        hash_value = offset_basis
         for char in key:
-            hash = hash * FNV_prime
-            hash = hash ^ ord(char)
-        return hash
+            hash_value = hash_value * FNV_prime
+            hash_value = hash_value ^ ord(char)
+        return hash_value
 
     def djb2(self, key):
         """
