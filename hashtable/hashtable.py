@@ -94,6 +94,7 @@ class HashTable:
         # Your code here
         hashed_idx = self.hash_index(key)
 
+        # nothing at index
         if not self.new_list[hashed_idx]:
             self.new_list[hashed_idx] = HashTableEntry(key, value)
             self.size += 1
@@ -130,6 +131,7 @@ class HashTable:
 
         if not current:
             print(f"Error: There is no key {key}")
+        # only one item so delete it
         elif not current.next:
             self.new_list[hashed_idx] = None
             self.size -= 1
