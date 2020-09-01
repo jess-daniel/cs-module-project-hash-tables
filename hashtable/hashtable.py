@@ -73,7 +73,15 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
-        pass
+        str_key = str(key).encode()
+
+        hash_value = 5381
+
+        for b in str_key:
+            hash_value = ((hash_value << 5) + hash_value) + b
+
+        hash_value &= 0xffffffff
+        return hash_value
 
     def hash_index(self, key):
         """
